@@ -19,6 +19,7 @@ Each mod branch has its own `AGENTS.md`, rendered from `mod.yml`; read that one 
 | `README.md` | How mods work, how to write one, how to submit one. The only long-form documentation. |
 | `blacklist.txt` | Registry users whose mods the base images refuse unless `RUN_BANNED_MODS` is set. One login per line. |
 | `tools/check-branch.sh` | Validates a checked-out mod branch: `mod.yml` against the schema, `FROM scratch`, executable `run` files, `build.yml` present. |
+| `tools/test-mod.sh` | Builds a checked-out mod branch and applies it to a LinuxServer image through the base image's sideload path, printing the init log. |
 | `LICENSE` | GPL-3.0, identical to every other playground repository. |
 | branch `template` | Starting point for new mods: `Dockerfile`, `Dockerfile.complex`, `root/` skeleton, example `mod.yml`, `build.yml`. |
 | branches `<target>-<name>` | One mod each: `Dockerfile`, `root/`, `mod.yml`, `README.md`, `AGENTS.md`, `.github/workflows/build.yml`. |
@@ -38,15 +39,17 @@ other than the `ghcr.io/linuxserver/baseimage-*` build stages.
 ## How to validate
 
 ```bash
-# on a checked-out mod branch, with the builder repo's venv providing the contracts package
+# from master, against a checked-out mod branch; the builder repo's venv provides the contracts package
 PYTHON=/path/to/builder/.venv/bin/python tools/check-branch.sh /path/to/mod-branch-checkout
-docker build -t mod:test .
-docker run --rm -e DOCKER_MODS=mod:test -e PUID=1000 -e PGID=1000 ghcr.io/linuxserver/baseimage-alpine:3.22
+tools/test-mod.sh /path/to/mod-branch-checkout [image]     # builds, sideloads the layer, prints the init log
 ```
 
-`check-branch.sh` is what a reviewer runs before approving; the mod init lines (`[mod-init] Applying mod
-mod:test`, the mod's own `****` lines, `[ls.io-init] done.`) in the container log are the functional test.
-If you cannot run Docker, say so; never claim a test that did not happen.
+`check-branch.sh` is what a reviewer runs before approving. `test-mod.sh` is the functional test: it
+builds the mod, extracts its single layer and starts the target image (or `baseimage-alpine` for universal
+mods) with `DOCKER_MODS_SIDELOAD=true` and the layer at `/mods/<name>.tar`, because `DOCKER_MODS=<image>`
+always resolves through a registry and never finds a local-only image. Success is `[mod-init] <name>
+applied to container`, the mod's own lines, and `[ls.io-init] done.` If you cannot run Docker, say so; never
+claim a test that did not happen.
 
 ## Contracts
 

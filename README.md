@@ -325,9 +325,8 @@ The branch name must be `<target>-<name>`; the shared workflow refuses to publis
   to fix permissions.
 * Fill in `mod.yml`. Do not edit `README.md`, `AGENTS.md` or `.github/workflows/build.yml`; they are
   generated from the manifest.
-* Run `tools/check-branch.sh` from the `master` branch against your checkout, then
-  `docker build -t mod:test .` and start a LinuxServer image with `-e DOCKER_MODS=mod:test` to see the mod
-  apply.
+* Run `tools/check-branch.sh` and `tools/test-mod.sh` from the `master` branch against your checkout (see
+  "Testing a mod locally" below) and read the mod's lines in the container log.
 * Ask the team to create a new branch named `<target>-<name>` in this repo, based on the template branch.
 * Submit a PR against that branch, with the commits squashed.
 * Commit and PR titles are `<target>: <name> <very brief description like "initial release" or "update">`
@@ -335,6 +334,24 @@ The branch name must be `<target>-<name>`; the shared workflow refuses to publis
   Disclose AI assistance in the PR description.
 
 ## Appendix
+
+### Testing a mod locally
+
+`DOCKER_MODS=<image>` always fetches the mod from a registry; the base images never look at the local Docker
+daemon, so a freshly built `mod:test` is reported as `not found in modcache`. The base images do have a
+sideload path for exactly this case: with `DOCKER_MODS_SIDELOAD=true`, each name in `DOCKER_MODS` is read
+from `/mods/<name>.tar`, which is the mod's single layer.
+
+```bash
+docker build -t mod:test .
+docker save mod:test | tar -x -C ./save
+cp ./save/$(python3 -c 'import json; print(json.load(open("save/manifest.json"))[0]["Layers"][0])') ./mods/mymod.tar
+docker run --rm -v "$PWD/mods:/mods:ro" -e DOCKER_MODS=mymod -e DOCKER_MODS_SIDELOAD=true \
+  -e PUID=1000 -e PGID=1000 ghcr.io/linuxserver/baseimage-alpine:3.22
+```
+
+`tools/test-mod.sh [checkout] [image]` on the `master` branch does all of that, waits for `[ls.io-init] done.`
+and prints the log; look for `[mod-init] <name> applied to container` followed by the mod's own output.
 
 ### File encoding
 
