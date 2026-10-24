@@ -28,9 +28,11 @@ If adding multiple mods, enter them in an array separated by `|`, such as
   `name`, `target` and `platforms` from `mod.yml`; the branch named `<target>-<name>` is the only one that
   publishes, to `ghcr.io/linuxserver-playground/mods:<target>-<name>`.
 * Edit this readme with pertinent info, delete these instructions.
-* Validate: `tools/check-branch.sh` from the `master` branch, then `docker build -t mod:test .` and
-  `docker run --rm -e DOCKER_MODS=mod:test -e PUID=1000 -e PGID=1000 ghcr.io/linuxserver/baseimage-alpine:3.22`
-  (or the image the mod targets) and look for the mod's lines after `[mod-init] Applying mod mod:test`.
+* Validate with `tools/check-branch.sh` and `tools/test-mod.sh` from the `master` branch, pointed at this
+  checkout. `test-mod.sh` builds the mod, extracts its single layer and starts the target image (or
+  `baseimage-alpine` for universal mods) with `DOCKER_MODS_SIDELOAD=true` and the layer at `/mods/<name>.tar`;
+  `DOCKER_MODS=<image>` only ever fetches from a registry, so a local-only image is not found. Look for
+  `[mod-init] <name> applied to container`, the mod's own lines and `[ls.io-init] done.`
 * Ask the team to create a new branch named `<target>-<name>`. `target` should be the name of the image the
   mod will be applied to, or `universal`. The new branch will be based on the `template` branch.
 * Submit a PR against the branch created by the team, commits squashed, titled
