@@ -1,43 +1,52 @@
-# Modname - Docker mod for imagename
+# cloudflare_real-ip - Docker mod for SWAG
 
-This mod adds modname to imagename, to be installed/updated during container start.
+This mod adds a startup script that gets the IPs from Cloudflare's edge servers, and outputs them in a format Nginx can use with `set_real_ip_from`.
 
-In imagename docker arguments, set an environment variable
-`DOCKER_MODS=ghcr.io/linuxserver-playground/mods:imagename-modname`
+It reads this [list for IPv4](https://www.cloudflare.com/ips-v4), and this [list for IPV6](https://www.cloudflare.com/ips-v6).
 
-If adding multiple mods, enter them in an array separated by `|`, such as
-`DOCKER_MODS=ghcr.io/linuxserver-playground/mods:imagename-modname|ghcr.io/linuxserver-playground/mods:imagename-mod2`
+In SWAG docker arguments, set an environment variable `DOCKER_MODS=linuxserver/mods:swag-cloudflare-real-ip`
 
-# Mod creation instructions
+If adding multiple mods, enter them in an array separated by `|`, such as `DOCKER_MODS=linuxserver/mods:swag-cloudflare-real-ip|linuxserver/mods:swag-f2bdiscord`
 
-* Fork the repo, create a new branch based on the branch `template`.
-* Edit the `Dockerfile` for the mod and set the `maintainer` label to your GitHub login. `Dockerfile.complex`
-  is only an example and included for reference; delete it when done.
-* Inspect the `root` folder contents. Edit, add and remove as necessary, and rename every
-  `init-mod-imagename-modname*` and `svc-mod-imagename-modname` unit (directory names, `up` paths and the
-  entries under `init-mods-end/dependencies.d`, `init-mods-package-install/dependencies.d` and
-  `user/contents.d`) to your `<target>-<name>`.
-* After all init scripts and services are created, run
-  `find ./ -path "./.git" -prune -o \( -name "run" -o -name "finish" -o -name "check" \) -not -perm -u=x,g=x,o=x -print -exec chmod +x {} +`
-  to fix permissions.
-* Fill in `mod.yml`: `name` and `target` must match the branch name `<target>-<name>`, list yourself in
-  `maintainers`, the base families your scripts handle in `bases`, and every environment variable the mod
-  reads in `env`. The hub indexes this file and the website shows it per image. Schema:
-  https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
-* Do not edit `AGENTS.md` or `.github/workflows/build.yml`: `build.yml` is the same on every branch and reads
-  `name`, `target` and `platforms` from `mod.yml`; the branch named `<target>-<name>` is the only one that
-  publishes, to `ghcr.io/linuxserver-playground/mods:<target>-<name>`.
-* Edit this readme with pertinent info, delete these instructions.
-* Validate: `tools/check-branch.sh` from the `master` branch, then `docker build -t mod:test .` and
-  `docker run --rm -e DOCKER_MODS=mod:test -e PUID=1000 -e PGID=1000 ghcr.io/linuxserver/baseimage-alpine:3.22`
-  (or the image the mod targets) and look for the mod's lines after `[mod-init] Applying mod mod:test`.
-* Ask the team to create a new branch named `<target>-<name>`. `target` should be the name of the image the
-  mod will be applied to, or `universal`. The new branch will be based on the `template` branch.
-* Submit a PR against the branch created by the team, commits squashed, titled
-  `<target>: <name> initial release`.
+## Mod usage instructions
 
-## Tips and tricks
+The file gets placed in your persistent data, at `/config/nginx/cf_real-ip.conf`
 
-* Some images have helpers built in, these images are currently:
-    * [Openvscode-server](https://github.com/linuxserver/docker-openvscode-server/pull/10/files)
-    * [Code-server](https://github.com/linuxserver/docker-code-server/pull/95)
+To enable nginx to read the IPs from this file, you need the following in your `nginx.conf` (`http` section):
+
+```nginx
+real_ip_header X-Forwarded-For;
+real_ip_recursive on;
+include /config/nginx/cf_real-ip.conf;
+```
+
+This mod also *tries* to detect the real ip from the interfaces in the container.
+
+You may need to add this mod (and the above config changes) to every nginx based container being proxied by SWAG.
+
+## Cloudflare tunnels
+
+In case you use Cloudflare tunnels, real IP might be reported in containers as 127.0.0.1.
+In this case, please add below to `http` section of `nginx.conf`.
+
+From:
+
+```nginx
+real_ip_header X-Forwarded-For;
+real_ip_recursive on;
+include /config/nginx/cf_real-ip.conf;
+```
+
+to:
+
+```nginx
+real_ip_header X-Forwarded-For;
+real_ip_recursive on;
+include /config/nginx/cf_real-ip.conf;
+set_real_ip_from 127.0.0.1;
+```
+
+## Versions
+
+* **16.01.23:** - Format shell scripts.
+* **21.01.21:** - Fix bug when mod runs before internet-access.
