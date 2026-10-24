@@ -24,8 +24,8 @@ jobs:
   manifest:
     name: Read mod.yml
     # The same file lives on master so GitHub registers the workflow (it only reads the default branch for
-    # that); master has no mod.yml, so nothing runs there and the build job is skipped with it.
-    if: hashFiles('mod.yml') != ''
+    # that); master itself holds no mod, so nothing runs there and the build job is skipped with it.
+    if: github.ref_name != github.event.repository.default_branch
     runs-on: ubuntu-24.04
     permissions:
       contents: read
