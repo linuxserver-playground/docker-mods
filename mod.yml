@@ -1,29 +1,17 @@
-# Example manifest. The branch of a real mod is named <target>-<name>; the shared build publishes
-# ghcr.io/linuxserver-playground/mods:<target>-<name> from that branch only.
-# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
 schema: 1
-name: modname
-target: imagename
-title: Modname
-summary: Installs apprise and its dependencies into imagename during container start and runs an example service.
+name: tshoot
+target: universal
+title: Troubleshooting tools
+summary: Adds common network troubleshooting tools (dig, nslookup, netstat, ping, traceroute) to any container, installed during container start.
 maintainers:
-  - username
-# platforms defaults to [amd64, arm64]; list only amd64 if the mod cannot be built or run on arm64.
-# platforms: [amd64]
+  - driz
 bases:
   - alpine
   - ubuntu
-env:
-  - name: MODNAME_SETTING
-    description: Example variable read by the mod's init script; delete or replace it.
-    default: "value"
-  - name: MODNAME_TOKEN
-    description: Example of a variable the user must supply; the mod exits with an error when it is unset.
-    required: true
-# For mods that pin an upstream tool version (sets MOD_VERSION in the build), name the version source the
-# same way image.yml does:
-# version:
-#   type: github_release
-#   repo: rclone/rclone
 deprecated:
   status: false
+docs: |
+  The packages are added to the shared mod package install list and installed once by the base image's
+  `init-mods-package-install` step: `dnsutils`, `net-tools`, `iputils-ping` and `traceroute` on Ubuntu based
+  images, `bind-tools` and `net-tools` on Alpine based images. Nothing is configured; the tools are simply
+  available in the container after start.

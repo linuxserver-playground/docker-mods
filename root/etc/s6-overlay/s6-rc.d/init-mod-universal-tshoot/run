@@ -1,0 +1,19 @@
+#!/usr/bin/with-contenv bash
+
+## Ubuntu
+if [ -f /usr/bin/apt ]; then
+    echo "**** Adding tshoot packages to install list ****"
+    echo "\
+        dnsutils \
+        net-tools \
+        iputils-ping \
+        traceroute" >> /mod-repo-packages-to-install.list
+
+fi
+# Alpine
+if [ -f /sbin/apk ]; then
+    echo "**** Adding tshoot packages to install list ****"
+    echo "\
+        bind-tools \
+        net-tools" >> /mod-repo-packages-to-install.list
+fi
