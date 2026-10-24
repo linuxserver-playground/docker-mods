@@ -1,43 +1,62 @@
-# Modname - Docker mod for imagename
+# DBIP Docker mod for Nginx based images
 
-This mod adds modname to imagename, to be installed/updated during container start.
+This mod downloads the `dbip-country-lite.mmdb` database under `/config/geoip2db`, the database is updated weekly.
 
-In imagename docker arguments, set an environment variable
-`DOCKER_MODS=ghcr.io/linuxserver-playground/mods:imagename-modname`
+**This mod should not be enabled together with swag-maxmind or swag-ipinfo mods.**
 
-If adding multiple mods, enter them in an array separated by `|`, such as
-`DOCKER_MODS=ghcr.io/linuxserver-playground/mods:imagename-modname|ghcr.io/linuxserver-playground/mods:imagename-mod2`
+Follow these steps to enable the dbip mod:
 
-# Mod creation instructions
+1. In the container's docker arguments, set an environment variable `DOCKER_MODS=linuxserver/mods:swag-dbip`
+   
+   If adding multiple mods, enter them in an array separated by `|`, such as `DOCKER_MODS=linuxserver/mods:swag-dbip|linuxserver/mods:swag-mod2`
+2. Recreate the container to apply the changes.
+3. Add the following line to `/config/nginx/nginx.conf` under the `http` section:
+   
+   ```nginx
+   include /config/nginx/dbip.conf;
+   ```
+4. Edit `/config/nginx/dbip.conf` and add countries to the blocklist / whitelist according to the comments, for example:
+   
+    ```nginx
+    map $geoip2_data_country_iso_code $geo-whitelist {
+        default no;
+        UK yes;
+    }
 
-* Fork the repo, create a new branch based on the branch `template`.
-* Edit the `Dockerfile` for the mod and set the `maintainer` label to your GitHub login. `Dockerfile.complex`
-  is only an example and included for reference; delete it when done.
-* Inspect the `root` folder contents. Edit, add and remove as necessary, and rename every
-  `init-mod-imagename-modname*` and `svc-mod-imagename-modname` unit (directory names, `up` paths and the
-  entries under `init-mods-end/dependencies.d`, `init-mods-package-install/dependencies.d` and
-  `user/contents.d`) to your `<target>-<name>`.
-* After all init scripts and services are created, run
-  `find ./ -path "./.git" -prune -o \( -name "run" -o -name "finish" -o -name "check" \) -not -perm -u=x,g=x,o=x -print -exec chmod +x {} +`
-  to fix permissions.
-* Fill in `mod.yml`: `name` and `target` must match the branch name `<target>-<name>`, list yourself in
-  `maintainers`, the base families your scripts handle in `bases`, and every environment variable the mod
-  reads in `env`. The hub indexes this file and the website shows it per image. Schema:
-  https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
-* Do not edit `AGENTS.md` or `.github/workflows/build.yml`: `build.yml` is the same on every branch and reads
-  `name`, `target` and `platforms` from `mod.yml`; the branch named `<target>-<name>` is the only one that
-  publishes, to `ghcr.io/linuxserver-playground/mods:<target>-<name>`.
-* Edit this readme with pertinent info, delete these instructions.
-* Validate: `tools/check-branch.sh` from the `master` branch, then `docker build -t mod:test .` and
-  `docker run --rm -e DOCKER_MODS=mod:test -e PUID=1000 -e PGID=1000 ghcr.io/linuxserver/baseimage-alpine:3.22`
-  (or the image the mod targets) and look for the mod's lines after `[mod-init] Applying mod mod:test`.
-* Ask the team to create a new branch named `<target>-<name>`. `target` should be the name of the image the
-  mod will be applied to, or `universal`. The new branch will be based on the `template` branch.
-* Submit a PR against the branch created by the team, commits squashed, titled
-  `<target>: <name> initial release`.
+    map $geoip2_data_country_iso_code $geo-blacklist {
+        default yes;
+        US no;
+    }
+    ```
+5. Use the definitions in the following way:
+   ```nginx
+    server {
+        listen 443 ssl;
+        listen [::]:443 ssl;
 
-## Tips and tricks
+        server_name some-app.*;
+        include /config/nginx/ssl.conf;
+        client_max_body_size 0;
 
-* Some images have helpers built in, these images are currently:
-    * [Openvscode-server](https://github.com/linuxserver/docker-openvscode-server/pull/10/files)
-    * [Code-server](https://github.com/linuxserver/docker-code-server/pull/95)
+        if ($lan-ip = yes) { set $geo-whitelist yes; }
+        if ($geo-whitelist = no) { return 404; }
+
+        location / {
+    ```
+   Or for blacklist with both some countries and continents: 
+    ```nginx
+    server {
+        listen 443 ssl;
+        listen [::]:443 ssl;
+
+        server_name some-app.*;
+        include /config/nginx/ssl.conf;
+        client_max_body_size 0;
+
+        if ($lan-ip = yes) { set $geo-blacklist yes; }
+        if ($geo-blacklist = no) { return 404; }
+        if ($continent-blacklist = no) { return 404; }
+
+        location / {
+    ```
+6. Restart the container to apply the changes.
