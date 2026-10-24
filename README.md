@@ -376,3 +376,7 @@ docker run --rm -it \
 ```bash
 dive <Image Name>
 ```
+
+## Why `master` carries a build workflow
+
+GitHub registers a repository's workflows from its default branch only. The `build.yml` on `master` is the same file every mod branch carries; on `master` it does nothing (there is no `mod.yml`), but its presence is what lets the mod branches be built and dispatched.
