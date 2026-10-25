@@ -1,0 +1,17 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+schema: 1
+name: php8
+target: code-server
+title: PHP8
+summary: This mod adds php8.2 and composer to code-server/openvscode-server, to be installed/updated during container start.
+maintainers:
+- aptalca
+- thelamer
+- nemchik
+platforms:
+- amd64
+images:
+- openvscode-server
+- vscodium-web
+deprecated:
+  status: false
