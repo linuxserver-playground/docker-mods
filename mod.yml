@@ -1,0 +1,19 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+# Converted from linuxserver/docker-mods: upstream computed MOD_VERSION in BuildImage.yml; builds here pass none, so the Dockerfile's own lookup applies
+schema: 1
+name: calibre
+target: universal
+title: Calibre
+summary: This mod adds the calibre binary to calibre-web, or other 64-bit Ubuntu-based containers, for ebook conversions.
+maintainers:
+- aptalca
+- thespad
+- drizuid
+platforms:
+- amd64
+- arm64
+images:
+- calibre-web
+- lazylibrarian
+deprecated:
+  status: false
