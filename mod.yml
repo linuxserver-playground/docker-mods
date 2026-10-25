@@ -1,0 +1,15 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+schema: 1
+name: openssh-client
+target: openssh-server
+title: OpenSSH-Client
+summary: This mod adds openssh-client to openssh-server, to be installed/updated during container start.
+maintainers:
+- aptalca
+- thelamer
+- nemchik
+platforms:
+- amd64
+deprecated:
+  status: true
+  message: THIS MOD HAS BEEN DEPRECATED - openssh-client is now included in the openssh-server image
