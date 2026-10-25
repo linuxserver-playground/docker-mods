@@ -1,0 +1,15 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+schema: 1
+name: remove-codecs
+target: plex
+title: Remove Codecs
+summary: This mod removes all codec subfolders from Plex's /config/Library/Application Support/Plex Media Server/Codecs/ folder,
+  preserves the .device-id, and allows Plex to repopulate the codecs folder while starting up.
+maintainers:
+- aptalca
+- nemchik
+- thelamer
+platforms:
+- amd64
+deprecated:
+  status: false
