@@ -1,0 +1,15 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+# Converted from linuxserver/docker-mods: upstream computed MOD_VERSION in BuildImage.yml; builds here pass none, so the Dockerfile's own lookup applies
+schema: 1
+name: opencl-intel
+target: jellyfin
+title: Opencl-Intel
+summary: This mod adds opencl-intel to jellyfin, to be installed/updated during container start.
+maintainers:
+- aptalca
+- quietsy
+- thelamer
+platforms:
+- amd64
+deprecated:
+  status: false
