@@ -1,0 +1,16 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+schema: 1
+name: imagemagick
+target: letsencrypt
+title: Imagemagick
+summary: This mod adds imagemagick and the php7 imagick module to nginx/letsencrypt, to be installed/updated during container
+  start.
+maintainers:
+- aptalca
+- thelamer
+- nemchik
+platforms:
+- amd64
+deprecated:
+  status: true
+  message: The letsencrypt image was renamed swag; use the swag mods.
