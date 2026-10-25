@@ -1,0 +1,15 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+schema: 1
+name: redis
+target: universal
+title: Redis
+summary: This mod adds redis to any container, to be installed/updated during container start.
+maintainers:
+- aptalca
+- thespad
+- thelamer
+platforms:
+- amd64
+- arm64
+deprecated:
+  status: false
