@@ -1,0 +1,19 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+schema: 1
+name: npmglobal
+target: code-server
+title: NPM Global
+summary: This mod sets the NPM global folder to /config in code-server/openvscode-server during container start.
+maintainers:
+- aptalca
+- si458
+- thelamer
+platforms:
+- amd64
+images:
+- openvscode-server
+- vscodium-web
+deprecated:
+  status: false
+docs: |
+  **This mod requires npm installed via a different mod**
