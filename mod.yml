@@ -1,0 +1,14 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+schema: 1
+name: memories
+target: nextcloud
+title: Memories
+summary: This mod adds the required packages the Memories nextcloud app needs to work.
+maintainers:
+- aptalca
+- JonathanTreffler
+- thelamer
+platforms:
+- amd64
+deprecated:
+  status: false
