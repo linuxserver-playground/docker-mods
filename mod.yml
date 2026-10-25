@@ -1,0 +1,18 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+schema: 1
+name: pnpm
+target: code-server
+title: pnpm
+summary: This mod adds PNPM to linuxserver/code-server and linuxserver/openvscode-server, to be installed during container
+  start.
+maintainers:
+- aptalca
+- thelamer
+- nemchik
+platforms:
+- amd64
+images:
+- openvscode-server
+- vscodium-web
+deprecated:
+  status: false
