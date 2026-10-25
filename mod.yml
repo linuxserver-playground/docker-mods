@@ -1,0 +1,16 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+schema: 1
+name: stdout-logs
+target: universal
+title: stdout-logs
+summary: This mod allows any specified log files to be tailed and included in the container's STDOUT.
+maintainers:
+- aptalca
+- alex-phillips
+- thelamer
+platforms:
+- amd64
+deprecated:
+  status: false
+docs: |
+  Simply set the environment variable `LOGS_TO_STDOUT` with a pipe-delimited (`|`) list of log files to include, such as `LOGS_TO_STDOUT="/config/logs/radarr.txt|/config/logs/radarr.debug.txt"`.
