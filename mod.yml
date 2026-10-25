@@ -8,6 +8,9 @@ title: Modname
 summary: Installs apprise and its dependencies into imagename during container start and runs an example service.
 maintainers:
   - username
+# Other images the mod is meant for besides its target (they list it on their pages and config labs); for a
+# universal mod, the images it is most useful with.
+# images: [otherimage]
 # platforms defaults to [amd64, arm64]; list only amd64 if the mod cannot be built or run on arm64.
 # platforms: [amd64]
 bases:
