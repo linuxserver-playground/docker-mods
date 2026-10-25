@@ -1,0 +1,18 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+schema: 1
+name: java11
+target: code-server
+title: Java11
+summary: This mod adds a java11 dev environment to code-server and openvscode-server, to be installed/updated during container
+  start.
+maintainers:
+- aptalca
+- thelamer
+- nemchik
+platforms:
+- amd64
+images:
+- openvscode-server
+- vscodium-web
+deprecated:
+  status: false
