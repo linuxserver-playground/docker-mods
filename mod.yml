@@ -1,0 +1,17 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+schema: 1
+name: svn
+target: code-server
+title: SVN
+summary: This mod installs subversion and the SVN extension into code-server/openvscode-server at startup.
+maintainers:
+- aptalca
+- RoboMagus
+- thelamer
+platforms:
+- amd64
+images:
+- openvscode-server
+- vscodium-web
+deprecated:
+  status: false
