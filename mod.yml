@@ -1,0 +1,15 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+schema: 1
+name: mediadc
+target: nextcloud
+title: MediaDC
+summary: This mod adds the required and optional packages the MediaDC nextcloud app needs to work. Optional dependency Scipy
+  is only installed on x8664 as there are no wheels available for arm64v8.
+maintainers:
+- aptalca
+- JonathanTreffler
+- thelamer
+platforms:
+- amd64
+deprecated:
+  status: false
