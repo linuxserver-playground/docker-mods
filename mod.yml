@@ -1,0 +1,20 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+schema: 1
+name: nodejs
+target: code-server
+title: Nodejs
+summary: This mod adds a nodejs dev environment to code-server/openvscode-server, to be installed/updated during container
+  start.
+maintainers:
+- aptalca
+- thelamer
+- thespad
+platforms:
+- amd64
+images:
+- openvscode-server
+- vscodium-web
+deprecated:
+  status: false
+docs: |
+  You can define the nodejs major version to be installed via setting the environment variable `NODEJS_MOD_VERSION` (accepts `16`, `18`, 20, etc. Minimum of `16`, defaults to `16`).
