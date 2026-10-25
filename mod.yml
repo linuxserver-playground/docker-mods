@@ -1,0 +1,14 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+schema: 1
+name: rsync
+target: openssh-server
+title: Rsync
+summary: This mod adds rsync to openssh-server, to be installed/updated during container start.
+maintainers:
+- aptalca
+- thelamer
+- nemchik
+platforms:
+- amd64
+deprecated:
+  status: false
