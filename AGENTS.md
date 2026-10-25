@@ -24,14 +24,17 @@ Each mod branch has its own `AGENTS.md`, rendered from `mod.yml`; read that one 
 | branch `template` | Starting point for new mods: `Dockerfile`, `Dockerfile.complex`, `root/` skeleton, example `mod.yml`, `build.yml`. |
 | branches `<target>-<name>` | One mod each: `Dockerfile`, `root/`, `mod.yml`, `README.md`, `AGENTS.md`, `.github/workflows/build.yml`. |
 
-There is no `mod-list.yml` here any more; the hub generates it from the branches' manifests.
+There is no `mod-list.yml` here any more; a mod's `mod.yml` lists the other images it is meant for under
+`images`, and the hub generates the legacy list from the branches' manifests. The branches were converted from
+linuxserver/docker-mods with `builder.mods.convert`; each `mod.yml` starts with comments naming what the
+conversion could not carry over. Deprecated mods that no longer build upstream (code-server-docker,
+sabnzbd-par2cmdline-turbo) and upstream work branches were not converted.
 
 ## What you may edit
 
 On `master`: everything, by pull request. On a mod branch: `Dockerfile`, `root/` and `mod.yml` only;
-`README.md`, `AGENTS.md` and `.github/workflows/build.yml` are generated from the manifest (today by hand from
-`templates/agents/mod.md.j2` in the builder repo; do not hand-edit them on a branch, change the template or
-the manifest). Adding a mod means a new branch named `<target>-<name>` based on `template`, never a directory on
+`README.md`, `AGENTS.md` and `.github/workflows/build.yml` are generated from the manifest by `builder render-mod`
+(templates in the builder repo; do not hand-edit them on a branch, change the template or the manifest). Adding a mod means a new branch named `<target>-<name>` based on `template`, never a directory on
 `master`. Do not add Docker Hub, Jenkins or per-branch custom workflows; the only workflow on a mod branch is
 the caller of `mod-build.yml@v1`. Nothing may reference a registry outside `ghcr.io/linuxserver-playground/`
 other than the `ghcr.io/linuxserver/baseimage-*` build stages.

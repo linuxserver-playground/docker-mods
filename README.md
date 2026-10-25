@@ -34,13 +34,17 @@ Every mod branch carries a `mod.yml` manifest
 ([schema](https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json)) next to its
 `Dockerfile`. The manifest is the only metadata file: the
 [hub](https://github.com/linuxserver-playground/hub) reads `mod.yml` from every branch to build the mods
-index (`/api/v1/mods.json` and `/api/v1/catalog/<image>/mods.json`), the website shows the mods that apply to
-each image from that index, and `README.md` and `AGENTS.md` on a mod branch are rendered from it.
+index (`/api/v1/mods.json` and `/api/v1/catalog/<image>/mods.json`), the website gives every mod a page
+(`https://linuxserver-playground.github.io/site/mods/<target>-<name>/`) and lists the mods that apply to each
+image on its page and in its config lab, and `README.md`, `AGENTS.md` and `.github/workflows/build.yml` on a
+mod branch are rendered from it.
 
 > **Note**
-> `mod-list.yml` is no longer hand-edited in this repository. The hub generates it in the legacy shape at
-> `<hub>/stores/mods/mod-list.yml` from the branches' `mod.yml` files; adding a mod means adding a branch
-> with a valid manifest, nothing else.
+> `mod-list.yml` is no longer hand-edited in this repository. The images a mod is meant for besides its target
+> (a code-server mod that also suits openvscode-server, a universal mod suggested for calibre-web) are listed in
+> its `mod.yml` under `images`. The hub generates `mod-list.yml` in the legacy shape at
+> `<hub>/stores/mods/mod-list.yml` from the branches' `mod.yml` files; adding a mod means adding a branch with a
+> valid manifest, nothing else.
 
 ## LinuxServer.io hosted mods
 
@@ -285,6 +289,7 @@ target: universal            # the image the mod applies to, or universal
 title: My mod
 summary: One or two sentences on what the mod does; the hub and the website show this.
 maintainers: [your-github-login]
+images: [code-server]        # optional: other images the mod is meant for, shown on their pages
 bases: [alpine, ubuntu]      # base families the init scripts handle
 env:                         # every variable the mod reads
   - name: MYMOD_SETTING
@@ -324,7 +329,9 @@ The branch name must be `<target>-<name>`; the shared workflow refuses to publis
   `find ./ -path "./.git" -prune -o \( -name "run" -o -name "finish" -o -name "check" \) -not -perm -u=x,g=x,o=x -print -exec chmod +x {} +`
   to fix permissions.
 * Fill in `mod.yml`. Do not edit `README.md`, `AGENTS.md` or `.github/workflows/build.yml`; they are
-  generated from the manifest.
+  generated from the manifest:
+  `docker run --rm -v "$PWD":/repo --user "$(id -u):$(id -g)" ghcr.io/linuxserver-playground/builder:latest render-mod`
+  (add `--check` to only report drift).
 * Run `tools/check-branch.sh` and `tools/test-mod.sh` from the `master` branch against your checkout (see
   "Testing a mod locally" below) and read the mod's lines in the container log.
 * Ask the team to create a new branch named `<target>-<name>` in this repo, based on the template branch.
