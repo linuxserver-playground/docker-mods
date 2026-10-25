@@ -1,0 +1,14 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+schema: 1
+name: ffmpeg
+target: swag
+title: Ffmpeg
+summary: This mod adds ffmpeg to swag, to be installed/updated during container start.
+maintainers:
+- aptalca
+- thelamer
+- sanmadjack
+platforms:
+- amd64
+deprecated:
+  status: false
