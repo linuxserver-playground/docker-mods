@@ -1,0 +1,22 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+schema: 1
+name: dtrpg-metadata
+target: calibre-web
+title: dtrpg-metadata
+summary: This adds a new metadata provider for calibre-web which will look for information on DriveThruRPG.com
+maintainers:
+- aptalca
+- thelamer
+- nemchik
+platforms:
+- amd64
+deprecated:
+  status: false
+docs: |
+  # Calibre-web - DriveThruRPG Metadata Provider
+
+  After installing, DriveThruRPG will be an option when pulling in metadata about a book.
+
+  In `calibre-web` docker arguments, set an environment variable `DOCKER_MODS=ghcr.io/linuxserver-playground/mods:calibre-web-dtrpg-metadata` to enable.
+
+  such as `DOCKER_MODS=ghcr.io/linuxserver-playground/mods:universal-calibre|ghcr.io/linuxserver-playground/mods:calibre-web-dtrpg-metadata`
