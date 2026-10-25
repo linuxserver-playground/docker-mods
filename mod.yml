@@ -1,0 +1,18 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+schema: 1
+name: env-var-settings
+target: transmission
+title: ENV Var Settings
+summary: This mod sets Transmission settings provided via environment variables.
+maintainers:
+- aptalca
+- thelamer
+- nemchik
+platforms:
+- amd64
+deprecated:
+  status: false
+docs: |
+  The environment variable names are a combination of `'TRANSMISSION_'` and the
+  setting name capitalized with hyphens (`'-'`) converted to underscores (`'_'`). For example, the setting
+  `'peer-port'` can be set with environment variable `TRANSMISSION_PEER_PORT`.
