@@ -2,7 +2,7 @@
 
 # Video remuxing script designed for use with Radarr and Sonarr
 # Automatically strips out unwanted audio and subtitles tracks, keeping only the desired languages.
-#  Prod: https://github.com/linuxserver/docker-mods/tree/radarr-striptracks
+#  Prod: https://github.com/linuxserver-playground/docker-mods/tree/radarr-striptracks
 #  Dev/test: https://github.com/TheCaptain989/radarr-striptracks
 #
 # Inspired by Endoro's post 1/5/2014:
