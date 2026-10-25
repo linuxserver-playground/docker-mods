@@ -1,0 +1,75 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+schema: 1
+name: ipinfo
+target: swag
+title: IPINFO
+summary: This mod downloads the ipinfolite.mmdb database under /config/geoip2db, the database is updated daily.
+maintainers:
+- aptalca
+- thelamer
+- thespad
+platforms:
+- amd64
+deprecated:
+  status: false
+docs: |
+  **This mod should not be enabled together with swag-maxmind or swag-dbip mods.**
+
+  Follow these steps to enable the ipinfo mod:
+
+  1. Sign up and aquire an ipinfo token here: https://ipinfo.io/signup
+  2. In the container's docker arguments, set the following environment variables:
+      - `IPINFO_TOKEN=<token>` with your token.
+  3. In the container's docker arguments, set an environment variable `DOCKER_MODS=ghcr.io/linuxserver-playground/mods:swag-ipinfo`
+
+  4. Recreate the container to apply the changes.
+  5. Add the following line to `/config/nginx/nginx.conf` under the `http` section:
+
+     ```nginx
+     include /config/nginx/ipinfo.conf;
+     ```
+  6. Edit `/config/nginx/ipinfo.conf` and add countries to the blocklist / whitelist according to the comments, for example:
+
+      ```nginx
+      map $geoip2_data_country_iso_code $geo-whitelist {
+          default no;
+          UK yes;
+      }
+
+      map $geoip2_data_country_iso_code $geo-blacklist {
+          default yes;
+          US no;
+      }
+      ```
+  7. Use the definitions in the following way:
+     ```nginx
+      server {
+          listen 443 ssl;
+          listen [::]:443 ssl;
+
+          server_name some-app.*;
+          include /config/nginx/ssl.conf;
+          client_max_body_size 0;
+
+          if ($lan-ip = yes) { set $geo-whitelist yes; }
+          if ($geo-whitelist = no) { return 404; }
+
+          location / {
+      ```
+     Or for blacklist with both some countries and continents:
+      ```nginx
+      server {
+          listen 443 ssl;
+          listen [::]:443 ssl;
+
+          server_name some-app.*;
+          include /config/nginx/ssl.conf;
+          client_max_body_size 0;
+
+          if ($lan-ip = yes) { set $geo-blacklist yes; }
+          if ($geo-blacklist = no) { return 404; }
+          if ($continent-blacklist = no) { return 404; }
+
+          location / {
+      ```
+  8. Restart the container to apply the changes.
