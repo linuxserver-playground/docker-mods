@@ -1,0 +1,30 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+schema: 1
+name: dns
+target: netbox
+title: NetBox DNS
+summary: 'This mod adds the NetBox DNS plugin (PyPI: netbox-plugin-dns) to a netbox container.'
+maintainers:
+- aptalca
+- thelamer
+- thespad
+platforms:
+- amd64
+deprecated:
+  status: false
+docs: |
+  Update your `configuration.py` to include the plugin
+
+  ```
+  ...
+  # Enable installed plugins. Add the name of each plugin to the list.
+  PLUGINS = ['netbox_dns']
+
+  ...
+  ```
+
+  On the next container start, the mod adds `netbox-plugin-dns` to the pip install list before NetBox runs its database migrations, and the plugin's tables will be created automatically.
+
+  ## Removal
+
+  Before removing `DOCKER_MODS`, remove `'netbox_dns'` from the `PLUGINS` list in your `configuration.py`. Otherwise NetBox will fail to start because the plugin package will no longer be installed but is still referenced in the configuration.
