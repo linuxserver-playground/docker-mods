@@ -1,0 +1,23 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+schema: 1
+name: proxy-confs
+target: nginx
+title: Proxy-conf
+summary: This mod adds some of the proxy-conf functionality that is baked into SWAG, to Nginx.
+maintainers:
+- aptalca
+- nemchik
+- Roxedus
+platforms:
+- amd64
+deprecated:
+  status: false
+docs: |
+  This mod does some reshuffling to the files that originally ships with our Nginx image. You have to track changes to these files yourself. If you are adding this mod to an existing install you have to modify, or replace these files yourself.
+
+  | File | Change |
+  | --- | --- |
+  | site-confs/default | Added include directives to load the files from proxy-confs/ |
+  | nginx.conf | Moved some directives to proxy.conf. Added the required map for websockets |
+  | proxy.conf | Direct copy from SWAG |
+  | ssl.conf | Based on the same file from SWAG, but changed certificate location |

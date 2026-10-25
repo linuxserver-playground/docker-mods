@@ -1,4 +1,4 @@
-## Version 2025/07/18 - Changelog: https://github.com/linuxserver/docker-mods/commits/nginx-proxy-confs/root/defaults/nginx/site-confs/default.conf.sample
+## Version 2025/07/18 - Changelog: https://github.com/linuxserver-playground/docker-mods/commits/nginx-proxy-confs/root/defaults/nginx/site-confs/default.conf.sample
 
 server {
     listen 80 default_server;
