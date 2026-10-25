@@ -1,0 +1,24 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+# Converted from linuxserver/docker-mods: upstream computed MOD_VERSION in BuildImage.yml; builds here pass none, so the Dockerfile's own lookup applies
+schema: 1
+name: julia
+target: code-server
+title: Julia
+summary: This mod adds a Julia dev environment to code-server/openvscode-server, to be installed/updated during container
+  start.
+maintainers:
+- aptalca
+- thelamer
+- nemchik
+platforms:
+- amd64
+- arm64
+images:
+- openvscode-server
+- vscodium-web
+deprecated:
+  status: false
+docs: |
+  **This mod no longer supports arm32v7 due to upstream binaries no longer guaranteed to be available on it per [this post](https://discourse.julialang.org/t/is-the-linux-armv7l-binary-deprecated/85924/2).**
+
+  By default, the latest stable version of Julia will be installed. If you'd like to install a different version, you can specify the version as a tag, from a list of published tags: https://hub.docker.com/r/linuxserver/mods/tags?page=1&name=code-server-julia (ie. `DOCKER_MODS=ghcr.io/linuxserver-playground/mods:code-server-julia-1.8.0`).
