@@ -1,0 +1,24 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+schema: 1
+name: slurpit
+target: netbox
+title: SlurpIT
+summary: This mod adds the slurpit plugin to a netbox container.
+maintainers:
+- aptalca
+- thelamer
+- nemchik
+platforms:
+- amd64
+deprecated:
+  status: false
+docs: |
+  Update your `configuration.py` to include the plugin
+
+  ```
+  ...
+  # Enable installed plugins. Add the name of each plugin to the list.
+  PLUGINS = ['slurpit_netbox']
+
+  ...
+  ```
