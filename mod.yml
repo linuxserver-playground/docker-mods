@@ -1,0 +1,16 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+# Converted from linuxserver/docker-mods: upstream computed MOD_VERSION in BuildImage.yml; builds here pass none, so the Dockerfile's own lookup applies
+schema: 1
+name: kcc
+target: calibre-web
+title: KCC (Kindle Comic Converter)
+summary: This mod adds KCC and its multitude of ebook processing (upscale, stretch, right to left for manga...) to Calibre
+  Web, to be installed/updated during container start.
+maintainers:
+- aptalca
+- hvmzx
+- thelamer
+platforms:
+- amd64
+deprecated:
+  status: false
