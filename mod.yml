@@ -1,0 +1,14 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+schema: 1
+name: drop2beets
+target: beets
+title: drop2beets
+summary: This mod adds drop2beets to beets, to be installed/updated during container start.
+maintainers:
+- aptalca
+- thelamer
+- thespad
+platforms:
+- amd64
+deprecated:
+  status: false
