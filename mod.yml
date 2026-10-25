@@ -1,0 +1,17 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+schema: 1
+name: wait-for-internet
+target: universal
+title: Universal Wait for Internet
+summary: This mod is used to help wait until an active internet connection is established. By default, it will attempt to
+  access https://www.linuxserver.io/. If after 60s a connection cannot be established, it will wait for 10s before attempting
+  again.
+maintainers:
+- aptalca
+- N3rdP1um23
+- thelamer
+platforms:
+- amd64
+deprecated:
+  status: true
+  message: THIS MOD HAS BEEN DEPRECATED AND WILL NOT RECEIVE UPDATES
