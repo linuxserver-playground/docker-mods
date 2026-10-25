@@ -1,0 +1,19 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+schema: 1
+name: heyu
+target: homeassistant
+title: Heyu
+summary: This mod adds heyu to homeassistant, to be installed/updated during container start.
+maintainers:
+- aptalca
+- dcflachs
+- thelamer
+platforms:
+- amd64
+- arm64
+deprecated:
+  status: false
+docs: |
+  # Mod config instructions
+
+  Heyu cannot be configured through the homeassistant interface. To configure heyu edit the config file at `/config/heyu/x10.conf`
