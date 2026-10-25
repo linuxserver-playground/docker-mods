@@ -1,0 +1,18 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+schema: 1
+name: terraform
+target: code-server
+title: Terraform
+summary: This mod adds the Terraform binary and extension to code-server/openvscode-server, to be installed/updated during
+  container start.
+maintainers:
+- aptalca
+- Roxedus
+- thelamer
+platforms:
+- amd64
+images:
+- openvscode-server
+- vscodium-web
+deprecated:
+  status: false
