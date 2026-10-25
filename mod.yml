@@ -1,0 +1,16 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+schema: 1
+name: ssl
+target: code-server
+title: SSL
+summary: This mod adds SSL capabilities to code-server.
+maintainers:
+- aptalca
+- thelamer
+- nemchik
+platforms:
+- amd64
+deprecated:
+  status: false
+docs: |
+  You will also need to set the variables `SSL_CERT_PATH` and `SSL_KEY_PATH`.
