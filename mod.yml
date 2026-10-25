@@ -1,0 +1,16 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+schema: 1
+name: ffmpeg
+target: lazylibrarian
+title: ffmpeg
+summary: This mod adds ffmpeg to lazylibrarian, to be installed/updated during container start.
+maintainers:
+- aptalca
+- thelamer
+- mKeRix
+platforms:
+- amd64
+deprecated:
+  status: false
+docs: |
+  To enable it you can set the ffmpeg path under Settings > Processing > External Programs to `ffmpeg` in the LazyLibrarian Web UI.
