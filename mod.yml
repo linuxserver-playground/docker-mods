@@ -1,0 +1,14 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+schema: 1
+name: absolute-hama
+target: plex
+title: Absolute Series Scanner and Hama
+summary: This mod adds Absolute Series Scanner and Hama to Plex, to be downloaded/updated during container start.
+maintainers:
+- aptalca
+- thelamer
+- nemchik
+platforms:
+- amd64
+deprecated:
+  status: false
