@@ -166,7 +166,7 @@
             ".conf" => "https://github.com/linuxserver/docker-swag/blob/master/root/defaults/nginx/",
             "subdomain.conf" => "https://github.com/linuxserver/reverse-proxy-confs/blob/master/",
             "subfolder.conf" => "https://github.com/linuxserver/reverse-proxy-confs/blob/master/",
-            "dashboard.subdomain.conf" => "https://github.com/linuxserver/docker-mods/blob/swag-dashboard/root/dashboard/",
+            "dashboard.subdomain.conf" => "https://github.com/linuxserver-playground/docker-mods/blob/swag-dashboard/root/dashboard/",
             "nginx.conf" => "https://github.com/linuxserver/docker-baseimage-alpine-nginx/tree/master/root/defaults/nginx/",
             "ssl.conf" => "https://github.com/linuxserver/docker-baseimage-alpine-nginx/tree/master/root/defaults/nginx/",
             "default.conf" => "https://github.com/linuxserver/docker-swag/blob/master/root/defaults/nginx/site-confs/",
