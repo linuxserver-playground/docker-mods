@@ -1,0 +1,15 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+schema: 1
+name: python2
+target: code-server
+title: Python2
+summary: This mod adds a python2 dev environment to code-server, to be installed/updated during container start.
+maintainers:
+- aptalca
+- thelamer
+- Roxedus
+platforms:
+- amd64
+deprecated:
+  status: true
+  message: This mod is deprecated since Python2 is EOL.
