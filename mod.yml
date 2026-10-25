@@ -1,0 +1,14 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+schema: 1
+name: git
+target: universal
+title: git
+summary: This mod adds git to any container, to be installed/updated during container start.
+maintainers:
+- aptalca
+- nemchik
+- thelamer
+platforms:
+- amd64
+deprecated:
+  status: false
