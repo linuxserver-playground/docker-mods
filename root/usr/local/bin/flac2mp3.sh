@@ -2,7 +2,7 @@
 
 # Script to convert FLAC files to MP3 using FFmpeg
 #  Dev/test: https://github.com/TheCaptain989/lidarr-flac2mp3
-#  Prod: https://github.com/linuxserver/docker-mods/tree/lidarr-flac2mp3
+#  Prod: https://github.com/linuxserver-playground/docker-mods/tree/lidarr-flac2mp3
 #
 # Resultant MP3s are fully tagged and retain same permissions as original file
 #
