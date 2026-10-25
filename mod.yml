@@ -1,0 +1,30 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+# Converted from linuxserver/docker-mods: upstream computed MOD_VERSION in BuildImage.yml; builds here pass none, so the Dockerfile's own lookup applies
+schema: 1
+name: rust
+target: code-server
+title: Rust
+summary: This mod adds Rust to code-server and openvscode-server.
+maintainers:
+- aptalca
+- totraku
+- thelamer
+platforms:
+- amd64
+- arm64
+images:
+- openvscode-server
+- vscodium-web
+deprecated:
+  status: false
+docs: |
+  In code-server or openvscode-server docker arguments, set an environment variable DOCKER_MODS=ghcr.io/linuxserver-playground/mods:code-server-rust
+
+  By default, the mod will install the latest stable version of Rust.  If you'd like to install a different version, you can specify the version as a tag, from a list of published tags: https://hub.docker.com/r/linuxserver/mods/tags?page=1&name=code-server-rust
+
+  Supported  architectures:
+  - [x] linux/amd64
+  - [x] linux/aarch64
+
+  Supported docker base images:
+  - [x] ubuntu:jammy
