@@ -1,0 +1,19 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+schema: 1
+name: ros2
+target: code-server
+title: ROS2
+summary: This mod adds ROS2 to code-server and openvscode-server, to be installed/updated during container start.
+maintainers:
+- aptalca
+- thelamer
+- nemchik
+platforms:
+- amd64
+images:
+- openvscode-server
+- vscodium-web
+deprecated:
+  status: false
+docs: |
+  The current release [ROS2 Humble](https://docs.ros.org/en/humble/) and its development tools will be made available inside the container.
