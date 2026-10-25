@@ -1,0 +1,18 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+schema: 1
+name: python3-poetry
+target: code-server
+title: Python3 + Poetry
+summary: This mod adds a python3 dev environment to code-server/openvscode-server, to be installed/updated during container
+  start, setting up a python3 environment with poetry.
+maintainers:
+- aptalca
+- howardt12345
+- thelamer
+platforms:
+- amd64
+images:
+- openvscode-server
+- vscodium-web
+deprecated:
+  status: false
