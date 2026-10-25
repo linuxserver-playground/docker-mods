@@ -1,0 +1,19 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+# Converted from linuxserver/docker-mods: upstream computed MOD_VERSION in BuildImage.yml; builds here pass none, so the Dockerfile's own lookup applies
+schema: 1
+name: trguing
+target: transmission
+title: TrguiNG - Remote GUI for Transmission torrent daemon
+summary: This mod adds TrguiNG to Transmission, to be installed/updated during container start.
+maintainers:
+- aptalca
+- azlux
+- thelamer
+platforms:
+- amd64
+deprecated:
+  status: false
+docs: |
+  ## Notes
+
+  * This mod will *overwrite* any existing `TRANSMISSION_WEB_HOME` environment variable that has been set.
