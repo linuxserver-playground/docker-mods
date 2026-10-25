@@ -1,0 +1,16 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+schema: 1
+name: audnexus
+target: plex
+title: Audnexus.bundle
+summary: This mod adds djdembeck/Audnexus.bundle.
+maintainers:
+- aptalca
+- tylernguyen
+- thelamer
+platforms:
+- amd64
+deprecated:
+  status: false
+docs: |
+  This mod was created based upon the [plex-absolute-hama](https://github.com/linuxserver-playground/docker-mods/tree/plex-absolute-hama) mod.
