@@ -27,8 +27,9 @@ Each mod branch has its own `AGENTS.md`, rendered from `mod.yml`; read that one 
 There is no `mod-list.yml` here any more; a mod's `mod.yml` lists the other images it is meant for under
 `images`, and the hub generates the legacy list from the branches' manifests. The branches were converted from
 linuxserver/docker-mods with `builder.mods.convert`; each `mod.yml` starts with comments naming what the
-conversion could not carry over. Deprecated mods that no longer build upstream (code-server-docker,
-sabnzbd-par2cmdline-turbo) and upstream work branches were not converted.
+conversion could not carry over. Mods that can no longer be built were dropped: code-server-docker and
+sabnzbd-par2cmdline-turbo (deprecated upstream) and transmission-transmission-web-control (its upstream project
+is gone from GitHub). Upstream work branches were not converted.
 
 ## What you may edit
 
