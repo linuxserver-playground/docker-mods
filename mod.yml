@@ -1,0 +1,28 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+# Converted from linuxserver/docker-mods: branch name does not match BuildImage.yml (None-None); took swag / auto-reload
+schema: 1
+name: auto-reload
+target: swag
+title: Auto-reload
+summary: This mod allows Nginx to be reloaded automatically whenever there are new files, or valid changes to the files in
+  /config/nginx.
+maintainers:
+- aptalca
+- nemchik
+- thespad
+platforms:
+- amd64
+images:
+- nginx
+deprecated:
+  status: true
+  message: This mod is deprecated. We will not offer support for this mod and it will not be updated. This mod's functionality
+    is now included in the SWAG image
+docs: |
+  ## DEPRECATION NOTICE
+
+  ### This mod is deprecated. We will not offer support for this mod and it will not be updated. This mod's functionality is now included in the SWAG image
+
+  If you'd like for Nginx to be reloaded when other files or folders are modified (not included in our default list above), set a new environment variable, `WATCHLIST`, and set it to a list of container relative paths separated by `|` like the below example:
+
+  `WATCHLIST="/config/nginx/custom.conf|/config/nginx/customfolder"`
