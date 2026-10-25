@@ -1,0 +1,16 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+schema: 1
+name: ioncube
+target: swag
+title: Ioncube Loader
+summary: This mod adds Ioncube loader to SWAG/nginx, to be installed/updated during container start.
+maintainers:
+- aptalca
+- thelamer
+- nemchik
+platforms:
+- amd64
+images:
+- nginx
+deprecated:
+  status: false
