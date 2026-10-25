@@ -1,0 +1,19 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+schema: 1
+name: zsh
+target: code-server
+title: Zsh / Oh My Zsh
+summary: This mod adds zsh and Oh My Zsh to code-server/openvscode-server, to be installed/updated during container start.
+maintainers:
+- aptalca
+- thelamer
+- nemchik
+platforms:
+- amd64
+images:
+- openvscode-server
+- vscodium-web
+deprecated:
+  status: false
+docs: |
+  `Oh My Zsh` is installed at `/config/.oh-my-zsh` and can be updated via `omz update` in terminal.
