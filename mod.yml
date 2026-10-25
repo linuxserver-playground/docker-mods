@@ -1,0 +1,18 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+schema: 1
+name: nvm
+target: code-server
+title: nvm
+summary: This mod adds Node Version Manager to linuxserver/code-server and linuxserver/openvscode-server, to be installed
+  during container start.
+maintainers:
+- aptalca
+- fabricionaweb
+- thelamer
+platforms:
+- amd64
+images:
+- openvscode-server
+- vscodium-web
+deprecated:
+  status: false
