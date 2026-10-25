@@ -1,0 +1,15 @@
+# Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
+schema: 1
+name: unrar6
+target: universal
+title: unrar6
+summary: This mod adds unrar version 6 to any container, to be installed/updated during container start.
+maintainers:
+- aptalca
+- thespad
+- thelamer
+platforms:
+- amd64
+- arm64
+deprecated:
+  status: false
