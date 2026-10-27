@@ -7,7 +7,8 @@
 # linuxserver-playground/builder; set PYTHON to an interpreter that has it, e.g. the builder venv), the
 # branch name matches <target>-<name> when the checkout is a git branch, the Dockerfile is FROM scratch or a
 # multi-stage build whose final stage is FROM scratch, every s6 run/finish/check file is executable, no
-# legacy BuildImage.yml remains, and .github/workflows/build.yml calls the shared mod build.
+# legacy BuildImage.yml remains, .github/workflows/build.yml calls the shared mod build, and (with the builder
+# package) the generated files match mod.yml and an upstream block has its ARG MOD_VERSION.
 # Exit 0 when everything passes, 1 otherwise; every finding is printed.
 
 set -euo pipefail
@@ -131,6 +132,21 @@ if [[ -d root ]]; then
     fi
 else
     warn "no root/ directory"
+fi
+
+# generated files and the upstream block (builder render-mod --check: README, AGENTS.md and build.yml match mod.yml,
+# an upstream block uses a source the scheduler runs, and the Dockerfile declares ARG MOD_VERSION for it)
+if [[ -f mod.yml ]]; then
+    if "${PYTHON}" -c 'import builder.mods' 2>/dev/null; then
+        if out=$("${PYTHON}" -m builder render-mod . --check 2>&1); then
+            ok "generated files match mod.yml (builder render-mod --check)"
+        else
+            err "builder render-mod --check:"
+            printf '%s\n' "${out}" | sed 's/^/      /'
+        fi
+    else
+        warn "the builder package is not importable by ${PYTHON}; render-mod --check skipped"
+    fi
 fi
 
 # workflows

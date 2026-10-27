@@ -40,10 +40,18 @@ On `master`: everything, by pull request. On a mod branch: `Dockerfile`, `root/`
 the caller of `mod-build.yml@v1`. Nothing may reference a registry outside `ghcr.io/linuxserver-playground/`
 other than the `ghcr.io/linuxserver/baseimage-*` build stages.
 
+A mod that packages one upstream tool carries an `upstream` block in `mod.yml` (README, "Mods that package an
+upstream tool"): every build resolves it and passes it as `MOD_VERSION`, and the control plane checks it hourly
+and dispatches the branch's build when `mods:<branch>-<version>` does not exist. These replace the Jenkins
+External-Triggers jobs; the mods that have one are those whose trigger still fired upstream (code-server
+dotnet, golang, julia, powershell and rust, calibre-web-kcc, jellyfin opencl-intel and rffmpeg, swag crowdsec
+and geoip2influx, transmission floodui, transmissionic and trguing, universal calibre, cloudflared, docker and
+docker-in-docker). Mass pushes to mod branches each start a build: space them out.
+
 ## How to validate
 
 ```bash
-# from master, against a checked-out mod branch; the builder repo's venv provides the contracts package
+# from master, against a checked-out mod branch; the builder repo's venv provides contracts and builder
 PYTHON=/path/to/builder/.venv/bin/python tools/check-branch.sh /path/to/mod-branch-checkout
 tools/test-mod.sh /path/to/mod-branch-checkout [image]     # builds, sideloads the layer, prints the init log
 ```

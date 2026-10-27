@@ -298,9 +298,29 @@ env:                         # every variable the mod reads
 deprecated: { status: false }
 ```
 
-Optional `platforms` (default `amd64` and `arm64`), `version` (an upstream version source, same shape as in
-`image.yml`, for mods that pin a tool version) and `docs` (longer Markdown shown on the mod's page) are
-described in the schema.
+Optional `platforms` (default `amd64` and `arm64`), `upstream` (below) and `docs` (longer Markdown shown on the
+mod's page) are described in the schema.
+
+### Mods that package an upstream tool
+
+A mod that installs one upstream tool at a pinned version (code-server-rust, universal-cloudflared,
+universal-docker…) says where the version comes from, with the same source types as `image.yml`
+(`github_release`, `github_commit`, `json`, `combined` for a version made of two upstreams, and so on; not
+`os`, `command` or `deb_repo`):
+
+```yaml
+upstream:
+  url: https://github.com/cloudflare/cloudflared
+  version:
+    type: github_release
+    repo: cloudflare/cloudflared
+```
+
+The Dockerfile declares `ARG MOD_VERSION` and builds that version (its own lookup is only the fallback for
+local builds). Every build resolves the version, passes it as `MOD_VERSION` and also publishes
+`:<target>-<name>-<version>`. The control plane resolves it every hour, as the Jenkins External-Triggers jobs
+did, and dispatches the branch's build when that tag does not exist yet, so a new upstream release becomes a
+new mod build without anyone pushing. `builder render-mod` fails when `ARG MOD_VERSION` is missing.
 
 ### Building
 
@@ -310,7 +330,7 @@ and calls `linuxserver-playground/workflows/.github/workflows/mod-build.yml@v1`,
 
 | Event | Image |
 | --- | --- |
-| push to the branch named `<target>-<name>` | `ghcr.io/linuxserver-playground/mods:<target>-<name>` and `:<target>-<name>-<sha7>` |
+| push to the branch named `<target>-<name>`, or the scheduler's dispatch | `ghcr.io/linuxserver-playground/mods:<target>-<name>` and `:<target>-<name>-<sha7>`, plus `:<target>-<name>-<version>` and `:<target>-<name>-<version>-<sha7>` with an `upstream` block |
 | pull request | `ghcr.io/linuxserver-playground/untrusted-pr/mods:<target>-<name>-pr-<n>`, deleted when the PR closes; fork PRs build without pushing |
 | push to any other branch | built, not pushed |
 
