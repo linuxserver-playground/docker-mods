@@ -1,5 +1,4 @@
 # Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
-# Converted from linuxserver/docker-mods: upstream computed MOD_VERSION in BuildImage.yml; builds here pass none, so the Dockerfile's own lookup applies
 schema: 1
 name: docker-in-docker
 target: universal
@@ -18,6 +17,22 @@ images:
 - code-server
 - openvscode-server
 - vscodium-web
+upstream:
+  url: https://www.docker.com/
+  version:
+    type: combined
+    sources:
+    - type: github_release
+      repo: moby/moby
+      exclude: ^(?!docker-v)
+      transform:
+      - regex: ^docker-v
+        replace: ''
+    - type: github_release
+      repo: docker/compose
+      transform:
+      - regex: ^v
+        replace: ''
 deprecated:
   status: false
 docs: |
