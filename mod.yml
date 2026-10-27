@@ -10,6 +10,12 @@ maintainers:
 - thelamer
 platforms:
 - amd64
+upstream:
+  url: https://github.com/GilbN/geoip2influx
+  version:
+    type: github_commit
+    repo: GilbN/geoip2influx
+    branch: master
 deprecated:
   status: false
 docs: "![](.assets/geoip2influx.png)\n\nThe mod will parse the access log for IPs and and convert them into geo metrics for\

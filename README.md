@@ -13,6 +13,12 @@ Several mods are separated by `|`, for example
 `DOCKER_MODS=ghcr.io/linuxserver-playground/mods:swag-geoip2influx|ghcr.io/linuxserver-playground/mods:universal-tshoot`. Recreate the container to
 apply the change.
 
+## Versions
+
+The mod packages [upstream](https://github.com/GilbN/geoip2influx) (`github_commit GilbN/geoip2influx`). The
+control plane checks it every hour and rebuilds the mod when a new version comes out; each build is also tagged
+with its version, so `ghcr.io/linuxserver-playground/mods:swag-geoip2influx-<version>` pins one.
+
 ## Details
 
 ![](.assets/geoip2influx.png)
