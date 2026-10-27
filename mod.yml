@@ -1,5 +1,4 @@
 # Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
-# Converted from linuxserver/docker-mods: upstream computed MOD_VERSION in BuildImage.yml; builds here pass none, so the Dockerfile's own lookup applies
 schema: 1
 name: julia
 target: code-server
@@ -16,6 +15,12 @@ platforms:
 images:
 - openvscode-server
 - vscodium-web
+upstream:
+  url: https://julialang.org/
+  version:
+    type: json
+    url: https://api.github.com/repos/JuliaLang/julia/releases
+    jq: '[.[] | select(.prerelease | not) | .tag_name | ltrimstr("v")] | sort_by(split(".") | map(tonumber? // 0)) | last'
 deprecated:
   status: false
 docs: |

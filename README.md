@@ -13,6 +13,12 @@ Several mods are separated by `|`, for example
 `DOCKER_MODS=ghcr.io/linuxserver-playground/mods:code-server-julia|ghcr.io/linuxserver-playground/mods:universal-tshoot`. Recreate the container to
 apply the change.
 
+## Versions
+
+The mod packages [upstream](https://julialang.org/) (`json https://api.github.com/repos/JuliaLang/julia/releases`). The
+control plane checks it every hour and rebuilds the mod when a new version comes out; each build is also tagged
+with its version, so `ghcr.io/linuxserver-playground/mods:code-server-julia-<version>` pins one.
+
 ## Details
 
 **This mod no longer supports arm32v7 due to upstream binaries no longer guaranteed to be available on it per [this post](https://discourse.julialang.org/t/is-the-linux-armv7l-binary-deprecated/85924/2).**
