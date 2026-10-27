@@ -1,5 +1,4 @@
 # Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
-# Converted from linuxserver/docker-mods: upstream computed MOD_VERSION in BuildImage.yml; builds here pass none, so the Dockerfile's own lookup applies
 schema: 1
 name: crowdsec
 target: swag
@@ -14,6 +13,11 @@ platforms:
 - amd64
 images:
 - nginx
+upstream:
+  url: https://github.com/crowdsecurity/cs-nginx-bouncer
+  version:
+    type: github_release
+    repo: crowdsecurity/cs-nginx-bouncer
 deprecated:
   status: false
 docs: |

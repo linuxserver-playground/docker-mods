@@ -13,6 +13,12 @@ Several mods are separated by `|`, for example
 `DOCKER_MODS=ghcr.io/linuxserver-playground/mods:swag-crowdsec|ghcr.io/linuxserver-playground/mods:universal-tshoot`. Recreate the container to
 apply the change.
 
+## Versions
+
+The mod packages [upstream](https://github.com/crowdsecurity/cs-nginx-bouncer) (`github_release crowdsecurity/cs-nginx-bouncer`). The
+control plane checks it every hour and rebuilds the mod when a new version comes out; each build is also tagged
+with its version, so `ghcr.io/linuxserver-playground/mods:swag-crowdsec-<version>` pins one.
+
 ## Details
 
 ## nginx.conf change
