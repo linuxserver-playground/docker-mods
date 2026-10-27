@@ -13,6 +13,12 @@ Several mods are separated by `|`, for example
 `DOCKER_MODS=ghcr.io/linuxserver-playground/mods:universal-docker|ghcr.io/linuxserver-playground/mods:universal-tshoot`. Recreate the container to
 apply the change.
 
+## Versions
+
+The mod packages [upstream](https://www.docker.com/) (`github_release moby/moby + github_release docker/compose`). The
+control plane checks it every hour and rebuilds the mod when a new version comes out; each build is also tagged
+with its version, so `ghcr.io/linuxserver-playground/mods:universal-docker-<version>` pins one.
+
 ## Details
 
 **IMPORTANT NOTE**: For docker access inside a container, a volume mapping needs to be added for `/var/run/docker.sock:/var/run/docker.sock:ro` in the container's docker run/create/compose. If you'd like to connect to a remote docker service instead, you don't have to map the docker sock; you can either set an env var for `DOCKER_HOST=remoteaddress` or use the docker cli option `-H`.
