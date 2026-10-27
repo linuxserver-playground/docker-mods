@@ -1,4 +1,5 @@
-# Generated for every docker-mods branch; identical on each. Do not edit on a mod branch.
+# Generated for every docker-mods branch; identical on each but for the `line` input,
+# which only mods with version lines (mod.yml upstream.lines) have. Do not edit on a mod branch.
 # Every build runs linuxserver-playground/workflows mod-build.yml@v1. The mod's identity comes from mod.yml
 # (name, target, platforms); the shared workflow publishes only when the branch is named <target>-<name>.
 name: Build
@@ -13,6 +14,10 @@ on:
     inputs:
       mod_version:
         description: Optional MOD_VERSION build arg, also published as an extra tag
+        type: string
+        default: ""
+      line:
+        description: Version line to build, a name from mod.yml upstream.lines; empty builds the default line
         type: string
         default: ""
 
@@ -75,4 +80,5 @@ jobs:
       target: ${{ needs.manifest.outputs.target }}
       multi_arch: ${{ needs.manifest.outputs.multi_arch == 'true' }}
       mod_version: ${{ github.event.inputs.mod_version || '' }}
+      mod_line: ${{ github.event.inputs.line || '' }}
       workflows_ref: v1

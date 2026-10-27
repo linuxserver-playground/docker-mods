@@ -19,20 +19,28 @@ The mod packages [upstream](https://go.dev/) (`json https://go.dev/dl/?mode=json
 control plane checks it every hour and rebuilds the mod when a new version comes out; each build is also tagged
 with its version, so `ghcr.io/linuxserver-playground/mods:code-server-golang-<version>` pins one.
 
+Upstream ships several version lines, and each is checked and built on its own. `:code-server-golang` follows the
+default line; a line's own tags follow its newest version.
+
+| Line | Source | Tags of a version X.Y.Z |
+| --- | --- | --- |
+| default | `json https://go.dev/dl/?mode=json` | `code-server-golang`, `code-server-golang-X`, `code-server-golang-X.Y`, `code-server-golang-X.Y.Z` |
+| previous | `json https://go.dev/dl/?mode=json` | `code-server-golang-X.Y`, `code-server-golang-X.Y.Z` |
+| unstable | `json https://go.dev/dl/?mode=json&include=all` | `code-server-golang-X.Y.Z` |
+
 ## Details
 
 ## Available Image Tags
-- `code-server-golang` : installs the latest stable version
-- `code-server-golang-X` : installs the latest major `X` version
-- `code-server-golang-X.X` : installs the latest minor `X.X` version
-- `code-server-golang-X.X.X` : installs the specific `X.X.X` version
+- `code-server-golang`: installs the latest stable version
+- `code-server-golang-X`: installs the latest major `X` version
+- `code-server-golang-X.Y`: installs the latest minor `X.Y` version, for the two minor versions Go supports
+- `code-server-golang-X.Y.Z`: installs the specific `X.Y.Z` version
+- `code-server-golang-X.YrcN`: installs a release candidate of the next minor version
 
 ### Examples
-- `ghcr.io/linuxserver-playground/mods:code-server-golang-1.13` will install the latest `1.13` release, which is `1.13.10` as of 2020/05/07
-- `ghcr.io/linuxserver-playground/mods:code-server-golang-1` will install the latest `1` release, which is `1.14.2` as of 2020/05/07
-- `ghcr.io/linuxserver-playground/mods:code-server-golang` will install the latest stable release, which is `1.14.2` as of 2020/05/07
-- `ghcr.io/linuxserver-playground/mods:code-server-golang-1.14.2` will install the specific `1.14.2` release
-
-Visit https://hub.docker.com/r/linuxserver/mods/tags?page=1&name=code-server-golang to see all available tags
+- `ghcr.io/linuxserver-playground/mods:code-server-golang` installs the latest stable release
+- `ghcr.io/linuxserver-playground/mods:code-server-golang-1` installs the latest `1` release
+- `ghcr.io/linuxserver-playground/mods:code-server-golang-1.26` installs the latest `1.26` release, the previous minor version
+- `ghcr.io/linuxserver-playground/mods:code-server-golang-1.27.3` installs the specific `1.27.3` release
 
 The mod's page on the website: https://linuxserver-playground.github.io/site/mods/code-server-golang/

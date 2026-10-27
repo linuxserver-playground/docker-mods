@@ -29,6 +29,9 @@ extracted over `/` when a container starts with `DOCKER_MODS=` set.
   `code-server-golang-<version>` tag yet. The build passes that version as the `MOD_VERSION` build arg:
   keep `ARG MOD_VERSION` in the Dockerfile and build that version; a lookup of its own is only the fallback for
   local builds.
+- `upstream.lines` adds version lines besides the default one (previous, unstable).
+  Each is checked on its own and dispatched with the `line` input; its build tags `<version>` and the line's
+  `tags`, never the bare `code-server-golang`. `build.yml` carries that input only on branches with lines.
 
 ## Validate locally
 
