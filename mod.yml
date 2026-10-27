@@ -1,5 +1,4 @@
 # Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
-# Converted from linuxserver/docker-mods: upstream computed MOD_VERSION in BuildImage.yml; builds here pass none, so the Dockerfile's own lookup applies
 schema: 1
 name: calibre
 target: universal
@@ -15,5 +14,10 @@ platforms:
 images:
 - calibre-web
 - lazylibrarian
+upstream:
+  url: https://calibre-ebook.com/
+  version:
+    type: github_release
+    repo: kovidgoyal/calibre
 deprecated:
   status: false

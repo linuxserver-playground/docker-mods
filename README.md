@@ -13,4 +13,10 @@ Several mods are separated by `|`, for example
 `DOCKER_MODS=ghcr.io/linuxserver-playground/mods:universal-calibre|ghcr.io/linuxserver-playground/mods:universal-tshoot`. Recreate the container to
 apply the change.
 
+## Versions
+
+The mod packages [upstream](https://calibre-ebook.com/) (`github_release kovidgoyal/calibre`). The
+control plane checks it every hour and rebuilds the mod when a new version comes out; each build is also tagged
+with its version, so `ghcr.io/linuxserver-playground/mods:universal-calibre-<version>` pins one.
+
 The mod's page on the website: https://linuxserver-playground.github.io/site/mods/universal-calibre/
