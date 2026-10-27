@@ -13,6 +13,12 @@ Several mods are separated by `|`, for example
 `DOCKER_MODS=ghcr.io/linuxserver-playground/mods:universal-cloudflared|ghcr.io/linuxserver-playground/mods:universal-tshoot`. Recreate the container to
 apply the change.
 
+## Versions
+
+The mod packages [upstream](https://github.com/cloudflare/cloudflared) (`github_release cloudflare/cloudflared`). The
+control plane checks it every hour and rebuilds the mod when a new version comes out; each build is also tagged
+with its version, so `ghcr.io/linuxserver-playground/mods:universal-cloudflared-<version>` pins one.
+
 ## Details
 
 If all additional parameters are supplied this docker mod will also create/configure/route/enable a cloudflare tunnel via `cloudflared` and the cloudflare v4 API.

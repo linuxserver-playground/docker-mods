@@ -1,5 +1,4 @@
 # Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
-# Converted from linuxserver/docker-mods: upstream computed MOD_VERSION in BuildImage.yml; builds here pass none, so the Dockerfile's own lookup applies
 schema: 1
 name: cloudflared
 target: universal
@@ -13,6 +12,11 @@ maintainers:
 platforms:
 - amd64
 - arm64
+upstream:
+  url: https://github.com/cloudflare/cloudflared
+  version:
+    type: github_release
+    repo: cloudflare/cloudflared
 deprecated:
   status: false
 docs: |
