@@ -3,11 +3,13 @@
 FROM ghcr.io/linuxserver/baseimage-alpine:3.23 AS buildstage
 
 ARG GO_VERSION
+ARG MOD_VERSION
 
 RUN \
  apk add --no-cache \
     grep && \
- if [ -z ${GO_VERSION+x} ]; then \
+ GO_VERSION="${GO_VERSION:-${MOD_VERSION}}" && \
+ if [ -z "${GO_VERSION}" ]; then \
     GO_VERSION=$(curl -sLX GET https://go.dev/dl/ | grep -o '<span.*>.*linux-amd64.*</span>' | grep -oP '(?<=go).*(?=.linux)'); \
  fi && \
  mkdir -p /root-layer/golang && \

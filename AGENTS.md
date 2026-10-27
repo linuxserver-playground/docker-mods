@@ -25,6 +25,10 @@ extracted over `/` when a container starts with `DOCKER_MODS=` set.
   the rest of `init-mods-end`. Services depend on `init-services`. Register in `user/contents.d/`.
 - Most good mods are 10 to 40 lines. If yours is not, reconsider the approach.
 - Commit and PR titles: `code-server: golang <short description>`. Squash before merging.
+- `upstream` in `mod.yml` is checked hourly by the control plane, which builds the mod when its version has no
+  `code-server-golang-<version>` tag yet. The build passes that version as the `MOD_VERSION` build arg:
+  keep `ARG MOD_VERSION` in the Dockerfile and build that version; a lookup of its own is only the fallback for
+  local builds.
 
 ## Validate locally
 

@@ -13,6 +13,15 @@ platforms:
 images:
 - openvscode-server
 - vscodium-web
+upstream:
+  url: https://go.dev/
+  version:
+    type: json
+    url: https://go.dev/dl/?mode=json
+    jq: .[0].version
+    transform:
+    - regex: ^go
+      replace: ''
 deprecated:
   status: false
 docs: |
