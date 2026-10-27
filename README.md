@@ -13,6 +13,12 @@ Several mods are separated by `|`, for example
 `DOCKER_MODS=ghcr.io/linuxserver-playground/mods:transmission-transmissionic|ghcr.io/linuxserver-playground/mods:universal-tshoot`. Recreate the container to
 apply the change.
 
+## Versions
+
+The mod packages [upstream](https://github.com/6c65726f79/Transmissionic) (`github_release 6c65726f79/Transmissionic`). The
+control plane checks it every hour and rebuilds the mod when a new version comes out; each build is also tagged
+with its version, so `ghcr.io/linuxserver-playground/mods:transmission-transmissionic-<version>` pins one.
+
 ## Details
 
 ## Notes
