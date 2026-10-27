@@ -1,5 +1,4 @@
 # Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
-# Converted from linuxserver/docker-mods: upstream computed MOD_VERSION in BuildImage.yml; builds here pass none, so the Dockerfile's own lookup applies
 schema: 1
 name: powershell
 target: code-server
@@ -15,5 +14,14 @@ platforms:
 images:
 - openvscode-server
 - vscodium-web
+upstream:
+  url: https://github.com/PowerShell/PowerShell
+  version:
+    type: json
+    url: https://raw.githubusercontent.com/PowerShell/PowerShell/master/tools/metadata.json
+    jq: .StableReleaseTag
+    transform:
+    - regex: ^v
+      replace: ''
 deprecated:
   status: false
