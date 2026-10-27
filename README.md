@@ -48,7 +48,7 @@ Here an example snippet to help you get started using this docker mod.
     restart: unless-stopped
 ```
 
-# Parameters
+## Parameters
 
 Container images/mods are configured using parameters passed at runtime (such as those above).
 
