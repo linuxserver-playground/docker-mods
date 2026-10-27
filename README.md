@@ -13,4 +13,10 @@ Several mods are separated by `|`, for example
 `DOCKER_MODS=ghcr.io/linuxserver-playground/mods:calibre-web-kcc|ghcr.io/linuxserver-playground/mods:universal-tshoot`. Recreate the container to
 apply the change.
 
+## Versions
+
+The mod packages [upstream](https://github.com/ciromattia/kcc) (`github_release ciromattia/kcc`). The
+control plane checks it every hour and rebuilds the mod when a new version comes out; each build is also tagged
+with its version, so `ghcr.io/linuxserver-playground/mods:calibre-web-kcc-<version>` pins one.
+
 The mod's page on the website: https://linuxserver-playground.github.io/site/mods/calibre-web-kcc/
