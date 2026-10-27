@@ -1,5 +1,4 @@
 # Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
-# Converted from linuxserver/docker-mods: upstream computed MOD_VERSION in BuildImage.yml; builds here pass none, so the Dockerfile's own lookup applies
 schema: 1
 name: floodui
 target: transmission
@@ -11,6 +10,11 @@ maintainers:
 - thelamer
 platforms:
 - amd64
+upstream:
+  url: https://github.com/johman10/flood-for-transmission
+  version:
+    type: github_release
+    repo: johman10/flood-for-transmission
 deprecated:
   status: false
 docs: |
