@@ -1,5 +1,4 @@
 # Schema: https://github.com/linuxserver-playground/builder/blob/main/schemas/mod.schema.json
-# Converted from linuxserver/docker-mods: upstream computed MOD_VERSION in BuildImage.yml; builds here pass none, so the Dockerfile's own lookup applies
 schema: 1
 name: dotnet
 target: code-server
@@ -15,6 +14,12 @@ platforms:
 images:
 - openvscode-server
 - vscodium-web
+upstream:
+  url: https://dotnet.microsoft.com/
+  version:
+    type: json
+    url: https://raw.githubusercontent.com/dotnet/core/main/release-notes/releases-index.json
+    jq: '[."releases-index"[] | select(."support-phase" == "active" or ."support-phase" == "maintenance") | ."latest-sdk"] | join("_")'
 deprecated:
   status: false
 docs: |

@@ -13,6 +13,12 @@ Several mods are separated by `|`, for example
 `DOCKER_MODS=ghcr.io/linuxserver-playground/mods:code-server-dotnet|ghcr.io/linuxserver-playground/mods:universal-tshoot`. Recreate the container to
 apply the change.
 
+## Versions
+
+The mod packages [upstream](https://dotnet.microsoft.com/) (`json https://raw.githubusercontent.com/dotnet/core/main/release-notes/releases-index.json`). The
+control plane checks it every hour and rebuilds the mod when a new version comes out; each build is also tagged
+with its version, so `ghcr.io/linuxserver-playground/mods:code-server-dotnet-<version>` pins one.
+
 ## Details
 
 The [current release and all current lts releases](https://dotnet.microsoft.com/download/dotnet-core) will be made available inside the container (5.0.101, 3.1.404 and 2.1.811 as of 2020/12/13).
