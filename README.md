@@ -322,9 +322,32 @@ local builds). Every build resolves the version, passes it as `MOD_VERSION` and 
 did, and dispatches the branch's build when that tag does not exist yet, so a new upstream release becomes a
 new mod build without anyone pushing. `builder render-mod` fails when `ARG MOD_VERSION` is missing.
 
+When upstream ships several version lines at once, `upstream.version` is the default line (the one
+`:<target>-<name>` follows) and `upstream.lines` names the others; `tags` adds the floating `-X` and `-X.Y` tags
+a line moves. code-server-golang builds Go's newest release, its previous supported release and its release
+candidate:
+
+```yaml
+upstream:
+  url: https://go.dev/
+  version: {type: json, url: "https://go.dev/dl/?mode=json", jq: ".[0].version", transform: [{regex: ^go, replace: ""}]}
+  tags: [major, minor]           # :code-server-golang-1 and :code-server-golang-1.27 follow 1.27.3
+  lines:
+    - name: previous             # 1.26.10, tagged :code-server-golang-1.26.10 and :code-server-golang-1.26
+      version: {type: json, url: "https://go.dev/dl/?mode=json", jq: ".[1].version", transform: [{regex: ^go, replace: ""}]}
+      tags: [minor]
+    - name: unstable             # the newest release candidate, tagged :code-server-golang-1.28rc1
+      version: {type: json, url: "https://go.dev/dl/?mode=json&include=all", jq: "[.[] | select(.stable | not)][0].version", transform: [{regex: ^go, replace: ""}]}
+```
+
+The control plane checks every line and builds the first one missing, one build of the branch at a time; the
+build of a line never moves `:<target>-<name>`. Such a branch's `build.yml` has a `line` input, which
+`builder render-mod` adds.
+
 ### Building
 
-`.github/workflows/build.yml` is the same file on every branch. It reads `name` and `target` from `mod.yml`
+`.github/workflows/build.yml` is the same file on every branch (a branch with `upstream.lines` also has the
+`line` input). It reads `name` and `target` from `mod.yml`
 and calls `linuxserver-playground/workflows/.github/workflows/mod-build.yml@v1`, which builds the image with
 `--no-cache --pull` for every platform in `platforms` (arm64 natively) and publishes:
 

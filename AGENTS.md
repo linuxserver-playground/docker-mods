@@ -46,7 +46,9 @@ and dispatches the branch's build when `mods:<branch>-<version>` does not exist.
 External-Triggers jobs; the mods that have one are those whose trigger still fired upstream (code-server
 dotnet, golang, julia, powershell and rust, calibre-web-kcc, jellyfin opencl-intel and rffmpeg, swag crowdsec
 and geoip2influx, transmission floodui, transmissionic and trguing, universal calibre, cloudflared, docker and
-docker-in-docker). Mass pushes to mod branches each start a build: space them out.
+docker-in-docker). code-server-golang also lists Go's `previous` and `unstable` lines under `upstream.lines`,
+each checked and built on its own. A push that touches `mod.yml` makes the control plane re-read that branch at
+once. Mass pushes to mod branches each start a build: space them out.
 
 ## How to validate
 
@@ -68,7 +70,7 @@ claim a test that did not happen.
 Produces `mod.yml` on every mod branch (`mod.schema.json` in `linuxserver-playground/builder`); the hub
 validates each with `python -m contracts mod` and skips invalid branches with a warning. Consumes
 `mod-build.yml` from `linuxserver-playground/workflows` (inputs `name`, `target`, `multi_arch`,
-`mod_version`). A change to the schema or the workflow inputs is coordinated in those repos first.
+`mod_version`, `mod_line`). A change to the schema or the workflow inputs is coordinated in those repos first.
 
 ## Pull request rules
 
