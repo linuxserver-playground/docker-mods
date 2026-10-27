@@ -13,6 +13,12 @@ Several mods are separated by `|`, for example
 `DOCKER_MODS=ghcr.io/linuxserver-playground/mods:jellyfin-rffmpeg|ghcr.io/linuxserver-playground/mods:universal-tshoot`. Recreate the container to
 apply the change.
 
+## Versions
+
+The mod packages [upstream](https://github.com/joshuaboniface/rffmpeg) (`github_commit joshuaboniface/rffmpeg`). The
+control plane checks it every hour and rebuilds the mod when a new version comes out; each build is also tagged
+with its version, so `ghcr.io/linuxserver-playground/mods:jellyfin-rffmpeg-<version>` pins one.
+
 ## Details
 
 rffmpeg is a remote FFmpeg wrapper used to execute FFmpeg commands on a remote server via SSH. It is most useful in situations involving media servers such as Jellyfin (our reference user), where one might want to perform transcoding actions with FFmpeg on a remote machine or set of machines which can better handle transcoding, take advantage of hardware acceleration, or distribute transcodes across multiple servers for load balancing.
